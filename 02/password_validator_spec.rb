@@ -12,9 +12,16 @@ describe PasswordValidator do
         expect(password_2.password).to eq "cdefg"
     end
 
-    it 'it validates that the password contains between the minimum and maximum amount of the specified char' do
+    it 'validates that the password contains between the minimum and maximum amount of the specified char' do
         expect(PasswordValidator.new("1-3 a: abcde").validate).to eq true
         expect(PasswordValidator.new("1-3 b: cdefg").validate).to eq false
         expect(PasswordValidator.new("2-9 c: ccccccccc").validate).to eq true
+    end
+
+    it 'validates that a character appears exactly one of the specified positions' do
+        expect(PasswordValidator.new("1-3 a: abcde").validate_pos).to eq true
+        expect(PasswordValidator.new("1-3 b: cdefg").validate_pos).to eq false
+        expect(PasswordValidator.new("2-9 c: ccccccccc").validate_pos).to eq false
+        expect(PasswordValidator.new("3-5 d: aaeadaerdfde").validate_pos).to eq true
     end
 end

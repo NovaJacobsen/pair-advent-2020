@@ -25,6 +25,10 @@ class PasswordValidator
         end
     end
 
+    def validate_pos
+        return (@password[condition["min"]-1] == condition["char"]) ^ (@password[condition["max"]-1] == condition["char"])
+    end
+
     def condition
         @condition
     end
